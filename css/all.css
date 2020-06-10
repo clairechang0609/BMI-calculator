@@ -1,0 +1,254 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video, input {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1.2;
+  background: whitesmoke;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+*, *:before, *:after {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+html {
+  font-family: "Helvetica Neue", PingFangTC-light, sans-serif;
+  font-size: 10px;
+  scroll-behavior: smooth;
+}
+
+a, button, input[type=button] {
+  transition: 0.2s ease-in-out;
+}
+
+a:hover, button:hover, input[type=button] {
+  cursor: pointer;
+}
+
+.wrap {
+  margin: 0 auto;
+}
+
+.header {
+  background: #424242;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.header img {
+  display: block;
+  width: 110px;
+  height: 110px;
+}
+.header .input-wrap {
+  display: flex;
+  flex-direction: column;
+  padding: 65px;
+}
+.header .input-wrap label {
+  font-size: 16px;
+  margin: 5px 0;
+  color: #FFD366;
+}
+.header .input-wrap input[type=text] {
+  width: 250px;
+  font-size: 16px;
+  color: white;
+  background: rgba(255, 255, 255, 0.25);
+  border: 2px solid #FFD366;
+  border-radius: 7px;
+  padding: 10px 15px;
+  margin: 0 0 20px;
+}
+.header .input-wrap input[type=text]::-ms-input-placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+.header .input-wrap input[type=text]::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+.header .input-wrap input[type=text]:focus {
+  outline: none;
+}
+.header .btn-wrap {
+  position: relative;
+}
+.header .btn-wrap input[type=button] {
+  width: 120px;
+  height: 120px;
+  font-size: 20px;
+  color: #424242;
+  background: #FFD366;
+  border-radius: 50%;
+}
+.header .btn-wrap input[type=button]:hover {
+  box-shadow: 0 0 6px 3px rgba(255, 211, 102, 0.65);
+}
+.header .btn-wrap input[type=button].active, .header .btn-wrap input[type=button]:focus {
+  outline: none;
+  background: #DEA921;
+  box-shadow: none;
+}
+.header .btn-wrap .btn-new {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  font-size: 28px;
+  line-height: 1.2;
+}
+.header .btn-wrap .btn-new p {
+  font-size: 14px;
+}
+.header .btn-wrap .btn-new .reload {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #424242;
+  font-size: 12px;
+  text-decoration: none;
+  border-radius: 50%;
+  border: 3px solid #424242;
+}
+.header .btn-wrap h4 {
+  position: absolute;
+  font-size: 24px;
+  top: 50px;
+  right: -65px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px;
+}
+.content h3 {
+  font-size: 20px;
+  color: #424242;
+  padding-bottom: 35px;
+}
+
+.record .record-box {
+  position: relative;
+}
+.record .record-box ul {
+  display: flex;
+  font-size: 18px;
+  background: white;
+  margin-bottom: 25px;
+  color: #4A4A4A;
+}
+.record .record-box ul li {
+  padding: 20px 25px 20px 30px;
+}
+.record .record-box ul li span {
+  display: inline-block;
+  font-size: 12px;
+  padding-right: 7px;
+  padding-top: 2.5px;
+  vertical-align: top;
+}
+.record .record-box ul li.color {
+  padding: 0;
+  width: 10px;
+}
+.record .record-box ul li.red {
+  background: #FF1200;
+}
+.record .record-box ul li.darkorange {
+  background: #FF6C03;
+}
+.record .record-box ul li.orange {
+  background: #FF982D;
+}
+.record .record-box ul li.green {
+  background: #86D73F;
+}
+.record .record-box ul li.blue {
+  background: #31BAF9;
+}
+.record .record-box .fas {
+  position: absolute;
+  top: -7px;
+  right: -7px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25px;
+  height: 25px;
+  background: #424242;
+  font-size: 12px;
+  color: white;
+  text-decoration: none;
+  border-radius: 50%;
+}
+
+.footer {
+  background: #FFD366;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.footer img {
+  width: 50px;
+  height: 50px;
+  margin: 20px;
+}
