@@ -1,58 +1,64 @@
-var btn = document.querySelector('.btn');
-var btnWrap = document.querySelector('.btn-wrap');
-var record = document.querySelector('.record');
-var data = JSON.parse(localStorage.getItem('BMIinfo')) || []; //一開始為空陣列
+const btn = document.querySelector('.btn');
+const btnWrap = document.querySelector('.btn-wrap');
+const record = document.querySelector('.record');
+const deleteAll = document.querySelector('.delete');
+const alertText = document.querySelector('.alert');
+let data = JSON.parse(localStorage.getItem('BMIinfo')) || []; //一開始為空陣列
 updateData(data);
 
 //今天日期
-function today() {
-    var today = new Date();
-    var month = today.getMonth();
-    var date = today.getDate();
-    var year = today.getFullYear();
-    var time = (month + 1) + '-' + date + '-' + year;
+const today = () => {
+    let today = new Date();
+    let month = today.getMonth();
+    let date = today.getDate();
+    let year = today.getFullYear();
+    let time = (month + 1) + '-' + date + '-' + year;
     return time;
 }
 
 //BMI數值
-function bmiNum(w, h) {
-    var BMIAll = w / ((h / 100) * (h / 100));
-    var BMI = BMIAll.toFixed(2); //取到小數點第二位
+const bmiNum = (w, h) => {
+    let BMIAll = w / Math.pow(h / 100, 2);
+    let BMI = BMIAll.toFixed(2); //取到小數點第二位
     return BMI;
 }
 
+//狀態管理
+const BMIJudge = (BMI) => {
+    if (BMI >= 35) {
+        judgeFinal = '重度肥胖';
+        colorFinal = '#FF1200';
+    } else if (BMI < 35 && BMI >= 30) {
+        judgeFinal = '中度肥胖';
+        colorFinal = '#FF6C03';
+    } else if (BMI < 30 && BMI >= 27) {
+        judgeFinal = '輕度肥胖';
+        colorFinal = '#FF982D';
+    } else if (BMI < 27 && BMI >= 24) {
+        judgeFinal = '過重';
+        colorFinal = '#FF982D';
+    } else if (BMI < 24 && BMI >= 18.5) {
+        judgeFinal = '理想';
+        colorFinal = '#86D73F';
+    } else if (BMI < 18.5) {
+        judgeFinal = '過輕';
+        colorFinal = '#31BAF9';
+    }
+}
+
 //儲存資料
-function getRecord() {
-    var heightValue = document.querySelector('#height').value;
-    var weightValue = document.querySelector('#weight').value;
-    var judgeFinal = '';
-    var colorFinal = '';
+const getRecord = () => {
+    let heightValue = document.querySelector('#height').value;
+    let weightValue = document.querySelector('#weight').value;
 
     if (isNaN(heightValue) || isNaN(weightValue) || heightValue < 0 || weightValue < 0){
-        alert('請輸入有效數字');
+        alertText.textContent = '＊請輸入有效數字';
     } else if (heightValue == '' || weightValue == ''){
-        alert('您忘了輸入資料');
+        alertText.textContent = '＊您忘了輸入資料';
     } else { //輸入正確才開始跑值
-        if (bmiNum(weightValue, heightValue) >= 35) {
-            judgeFinal = '重度肥胖';
-            colorFinal = 'red';
-        } else if (bmiNum(weightValue, heightValue) < 35 && bmiNum(weightValue, heightValue) >= 30) {
-            judgeFinal = '中度肥胖';
-            colorFinal = 'darkorange';
-        } else if (bmiNum(weightValue, heightValue) < 30 && bmiNum(weightValue, heightValue) >= 27) {
-            judgeFinal = '輕度肥胖';
-            colorFinal = 'orange';
-        } else if (bmiNum(weightValue, heightValue) < 27 && bmiNum(weightValue, heightValue) >= 24) {
-            judgeFinal = '過重';
-            colorFinal = 'orange';
-        } else if (bmiNum(weightValue, heightValue) < 24 && bmiNum(weightValue, heightValue) >= 18.5) {
-            judgeFinal = '理想';
-            colorFinal = 'green';
-        } else if (bmiNum(weightValue, heightValue) < 18.5) {
-            judgeFinal = '過輕';
-            colorFinal = 'blue';
-        }
-        var BMIlist = {
+        alertText.textContent = '';       
+        BMIJudge(bmiNum(weightValue, heightValue));
+        const BMIlist = {
             color: colorFinal,
             judge: judgeFinal,
             BMI: bmiNum(weightValue, heightValue),
@@ -63,7 +69,7 @@ function getRecord() {
         data.push(BMIlist);
         localStorage.setItem('BMIinfo', JSON.stringify(data));
         updateData(data);
-        changBtn(bmiNum(weightValue, heightValue), judgeFinal);
+        changBtn(BMIlist.BMI, BMIlist.judge, BMIlist.color);
     }
 }
 btn.addEventListener('click', getRecord, false);
@@ -72,23 +78,26 @@ btn.addEventListener('click', getRecord, false);
 function updateData(content) {
     var dataAll = '';
     var total = content.length;
-    for (var i = 0; i < total; i++) {
-        var color = '<li class="color ' + data[i].color + '"></li>'
-        var judgeText = '<li>' + data[i].judge + '</li>';
-        var bmiText = '<li><span>BMI</span>' + data[i].BMI + '</li>';
-        var weightText = '<li><span>weight</span>' + data[i].weight + '</li>';
-        var heightText = '<li><span>height</span>' + data[i].height + '</li>';
-        var dateText = '<li><span>' + data[i].date + '</span></li>';
-        var btn = '<a href="#" class="fas fa-trash-alt" data-num="' + i + '"></a>';
-        dataAll += '<li class="record-box"><ul>' + color + judgeText + bmiText + weightText + heightText + dateText + '</ul>' + btn + '</li>';
+    for (let i = 0; i < total; i++) {
+        dataAll += `<li class="record-box">
+                        <ul>
+                            <li class="color" style="background: ${data[i].color}"></li>
+                            <li>${data[i].judge}</li>
+                            <li><span>BMI</span>${data[i].BMI}</li>
+                            <li><span>weight</span>${data[i].weight}</li>
+                            <li><span>height</span>${data[i].height}</li>
+                            <li><span>${data[i].date}</span></li>
+                        </ul>
+                        <a href="#" class="fas fa-trash-alt" data-num="${i}"></a>
+                    </li>`;
     }
     record.innerHTML = dataAll;
 }
 
 // 刪除record，從父元素監聽
-function deleteRecord(e) {
+const deleteRecord = e => {
     e.preventDefault();
-    var targetNum = e.target.dataset.num;
+    let targetNum = e.target.dataset.num;
     if (e.target.nodeName !== 'A'){
         return
     } else {
@@ -99,40 +108,36 @@ function deleteRecord(e) {
 }
 record.addEventListener('click', deleteRecord, false);
 
+//刪除全部紀錄
+const deleteAllRecord = e => {
+    e.preventDefault();
+    data = [];
+    localStorage.setItem('BMIinfo', JSON.stringify(data));
+    updateData(data);
+}
+deleteAll.addEventListener('click', deleteAllRecord, false);
+
 //btn點擊改變樣式
-function changBtn(BMI, judge) {
-    var btnMain = '<div class="btn-new"><h5>' + BMI + '</h5><p>BMI</p><a herf="#" class="reload fas fa-sync"></a></div>';
-    var btnJudge = '<h4>' + judge + '</h4>';
-    btnWrap.innerHTML = btnMain + btnJudge;
+const changBtn = (BMI, judge, color) => {
+    btnWrap.innerHTML = `<div class="btn-new">
+                            <h5>${BMI}</h5>
+                            <p>BMI</p>
+                            <a herf="#" class="reload fas fa-sync"></a>
+                        </div>
+                        <h4>${judge}</h4>`;
 
-    var btnNew = document.querySelector('.btn-new');
-    var reload = document.querySelector('.reload');
+    let btnNew = document.querySelector(`.btn-new`);
+    let reload = document.querySelector(`.reload`);
 
-    if (judge == '重度肥胖'){
-        btnWrap.setAttribute('style', 'color: #FF1200');
-        btnNew.setAttribute('style', 'border: 6px solid #FF1200');
-        reload.setAttribute('style', 'background: #FF1200');
-    } else if (judge == '中度肥胖' || judge == '輕度肥胖'){
-        btnWrap.setAttribute('style', 'color: #FF6C03');
-        btnNew.setAttribute('style', 'border: 6px solid #FF6C03');
-        reload.setAttribute('style', 'background: #FF6C03');
-    } else if (judge == '過重'){
-        btnWrap.setAttribute('style', 'color: #FF982D');
-        btnNew.setAttribute('style', 'border: 6px solid #FF982D');
-        reload.setAttribute('style', 'background: #FF982D');
-    } else if (judge == '理想') {
-        btnWrap.setAttribute('style', 'color: #86D73F');
-        btnNew.setAttribute('style', 'border: 6px solid #86D73F');
-        reload.setAttribute('style', 'background: #86D73F');
-    } else {
-        btnWrap.setAttribute('style', 'color: #31BAF9');
-        btnNew.setAttribute('style', 'border: 6px solid #31BAF9');
-        reload.setAttribute('style', 'background: #31BAF9');
-    }
+    btnWrap.setAttribute(`style`, `color: ${color}`);
+    btnNew.setAttribute(`style`, `border: 6px solid ${color}`);
+    reload.setAttribute(`style`, `background: ${color}`);
 
     //改變樣式之後按重新整理btn重整頁面
-    reload.onclick = function (e) {
+    reload.onclick = e => {
         e.preventDefault();
-        window.location.reload();
+        btnWrap.innerHTML = `<input type="button" class="btn" value="看結果">`;
+        document.querySelector('#height').value = '';
+        document.querySelector('#weight').value = '';
     }
 }

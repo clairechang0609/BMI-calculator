@@ -90,6 +90,7 @@ a:hover, button:hover, input[type=button] {
   height: 110px;
 }
 .header .input-wrap {
+  position: relative;
   display: flex;
   flex-direction: column;
   padding: 65px;
@@ -109,14 +110,18 @@ a:hover, button:hover, input[type=button] {
   padding: 10px 15px;
   margin: 0 0 20px;
 }
-.header .input-wrap input[type=text]::-ms-input-placeholder {
-  color: rgba(255, 255, 255, 0.5);
-}
 .header .input-wrap input[type=text]::placeholder {
   color: rgba(255, 255, 255, 0.5);
 }
 .header .input-wrap input[type=text]:focus {
   outline: none;
+}
+.header .input-wrap .alert {
+  position: absolute;
+  bottom: 55px;
+  left: 61px;
+  color: #FF1200;
+  font-size: 13px;
 }
 .header .btn-wrap {
   position: relative;
@@ -168,10 +173,11 @@ a:hover, button:hover, input[type=button] {
   border: 3px solid #424242;
 }
 .header .btn-wrap h4 {
+  width: 100%;
   position: absolute;
   font-size: 24px;
   top: 50px;
-  right: -65px;
+  left: 140px;
 }
 
 .content {
@@ -184,6 +190,19 @@ a:hover, button:hover, input[type=button] {
   font-size: 20px;
   color: #424242;
   padding-bottom: 35px;
+}
+.content .delete {
+  padding: 5px 10px;
+  color: #424242;
+  border: 2px solid #424242;
+  text-decoration: none;
+  font-size: 14px;
+  border-radius: 3px;
+  margin-top: 10px;
+}
+.content .delete:hover {
+  background: #424242;
+  color: white;
 }
 
 .record .record-box {
@@ -209,21 +228,6 @@ a:hover, button:hover, input[type=button] {
 .record .record-box ul li.color {
   padding: 0;
   width: 10px;
-}
-.record .record-box ul li.red {
-  background: #FF1200;
-}
-.record .record-box ul li.darkorange {
-  background: #FF6C03;
-}
-.record .record-box ul li.orange {
-  background: #FF982D;
-}
-.record .record-box ul li.green {
-  background: #86D73F;
-}
-.record .record-box ul li.blue {
-  background: #31BAF9;
 }
 .record .record-box .fas {
   position: absolute;

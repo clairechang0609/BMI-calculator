@@ -86,6 +86,7 @@ $font-grey: #4A4A4A;
 		height: 110px;
 	}
 	.input-wrap{
+		position: relative;
 		display: flex;
 		flex-direction: column;
 		padding: 65px;
@@ -109,6 +110,13 @@ $font-grey: #4A4A4A;
 			&:focus{
 				outline: none;
 			}
+		}
+		.alert{
+			position: absolute;
+			bottom: 55px;
+			left: 61px;
+			color: $red;
+			font-size: 13px;
 		}
 	}
 	.btn-wrap{
@@ -160,10 +168,11 @@ $font-grey: #4A4A4A;
 			}
 		}
 		h4{
+			width: 100%;
 			position: absolute;
 			font-size: 24px;
 			top: 50px;
-			right: -65px;
+			left: 140px;
 		}
 	}
 	
@@ -177,6 +186,19 @@ $font-grey: #4A4A4A;
 		font-size: 20px;
 		color: $grey;
 		padding-bottom: 35px;
+	}
+	.delete{
+		padding: 5px 10px;
+		color: $grey;
+		border: 2px solid $grey;
+		text-decoration: none;
+		font-size: 14px;
+		border-radius: 3px;
+		margin-top: 10px;
+		&:hover{
+			background: $grey;
+			color: rgb(255,255,255);
+		}
 	}
 }
 .record{
@@ -200,21 +222,6 @@ $font-grey: #4A4A4A;
 				&.color{
 					padding: 0;
 					width: 10px;
-				}
-				&.red{
-					background: $red;
-				}
-				&.darkorange{
-					background: $dark-o;
-				}
-				&.orange{
-					background: $orange;
-				}
-				&.green{
-					background: $green;
-				}
-				&.blue{
-					background: $blue;
 				}
 			}
 		}
