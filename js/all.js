@@ -53,7 +53,7 @@ const getRecord = () => {
 
     if (isNaN(heightValue) || isNaN(weightValue) || heightValue < 0 || weightValue < 0){
         alertText.textContent = '＊請輸入有效數字';
-    } else if (heightValue == '' || weightValue == ''){
+    } else if (heightValue === '' || weightValue === ''){
         alertText.textContent = '＊您忘了輸入資料';
     } else { //輸入正確才開始跑值
         alertText.textContent = '';       
@@ -76,8 +76,8 @@ btn.addEventListener('click', getRecord, false);
 
 //將資料呈現在頁面上
 function updateData(content) {
-    var dataAll = '';
-    var total = content.length;
+    let dataAll = '';
+    let total = content.length;
     for (let i = 0; i < total; i++) {
         dataAll += `<li class="record-box">
                         <ul>
@@ -139,5 +139,6 @@ const changBtn = (BMI, judge, color) => {
         btnWrap.innerHTML = `<input type="button" class="btn" value="看結果">`;
         document.querySelector('#height').value = '';
         document.querySelector('#weight').value = '';
+        document.querySelector('.btn').addEventListener('click', getRecord, false); //讓按鈕回復原有功能
     }
 }
